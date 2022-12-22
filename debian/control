@@ -1,0 +1,25 @@
+Source: python-cliapp
+Maintainer: Debian QA Group <packages@qa.debian.org> 
+Section: python
+Priority: optional
+Standards-Version: 3.9.8
+Build-Depends: debhelper (>= 9),
+    dh-python,
+    python3-all (>= 3.4~),
+    python3-coverage-test-runner,
+    pycodestyle,
+    python3-yaml,
+    python3-xdg
+
+Package: python3-cliapp
+Architecture: all
+Depends: ${python3:Depends}, ${misc:Depends}, python3 (>= 3.4), python3-yaml
+Breaks: python-cliapp (<< 1.20170827-1)
+Replaces: python-cliapp (<< 1.20170827-1)
+Suggests: python3-xdg
+Description: Python framework for Unix command line programs
+ cliapp makes it easier to write typical Unix command line programs,
+ by taking care of the common tasks they need to do, such as
+ parsing the command line, reading configuration files, setting
+ up logging, iterating over lines of input files, and so on.
+Homepage: http://liw.fi/cliapp/

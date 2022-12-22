@@ -1,0 +1,13 @@
+Test-Command: cp -r cliapp/*_tests.py test-plugins/ $AUTOPKGTEST_TMP
+  && cd $AUTOPKGTEST_TMP
+  && python3 -m unittest discover --pattern '*_tests.py' --verbose
+Depends: @, python3-xdg
+Features: test-name=unittests
+Restrictions: allow-stderr
+
+# Tests: test-with-dependencies
+# Depends: @, @builddeps@, g++, make
+
+# Tests: test-with-restrictions
+# Restrictions: allow-stderr needs-root break-testbed rw-build-tree
+
