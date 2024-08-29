@@ -1,1 +1,3 @@
 use-pycodestyle.patch
+python3.12-importlib.patch
+python3.12-configparser.diff

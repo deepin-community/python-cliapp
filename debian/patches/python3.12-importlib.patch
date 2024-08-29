@@ -1,0 +1,57 @@
+From: Stefano Rivera <stefano@rivera.za.net>
+Date: Mon, 22 Jan 2024 16:57:29 -0400
+Subject: Port to importlib
+
+For Python 3.12 support, migrate from imp to importlib.
+This uses the example load_source provided in the Python 3.12
+documentation.
+
+Bug-Debian: https://bugs.debian.org/1058179
+---
+ cliapp/pluginmgr.py | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
+
+diff --git a/cliapp/pluginmgr.py b/cliapp/pluginmgr.py
+index 6884c0c..6823fc4 100644
+--- a/cliapp/pluginmgr.py
++++ b/cliapp/pluginmgr.py
+@@ -26,7 +26,8 @@ other modules as well, such as unit tests, in the same locations.)
+ '''
+ 
+ 
+-import imp
++import importlib.util
++import importlib.machinery
+ import inspect
+ import os
+ 
+@@ -34,6 +35,17 @@ import os
+ from cliapp import Plugin
+ 
+ 
++def load_source(modname, filename):
++    loader = importlib.machinery.SourceFileLoader(modname, filename)
++    spec = importlib.util.spec_from_file_location(modname, filename, loader=loader)
++    module = importlib.util.module_from_spec(spec)
++    # The module is always executed and not cached in sys.modules.
++    # Uncomment the following line to cache the module.
++    # sys.modules[module.__name__] = module
++    loader.exec_module(module)
++    return module
++
++
+ class PluginManager(object):
+ 
+     '''Manage plugins.
+@@ -127,10 +139,7 @@ class PluginManager(object):
+         '''Return plugin classes in a plugin file.'''
+ 
+         name, _ = os.path.splitext(os.path.basename(pathname))
+-        f = open(pathname, 'r')
+-        module = imp.load_module(name, f, pathname,
+-                                 ('.py', 'r', imp.PY_SOURCE))
+-        f.close()
++        module = load_source(name, pathname)
+ 
+         plugins = []
+         for dummy, member in inspect.getmembers(module, inspect.isclass):
