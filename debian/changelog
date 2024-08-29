@@ -1,3 +1,18 @@
+python-cliapp (1.20180812.1-6) unstable; urgency=medium
+
+  * QA upload.
+  * Fix FTBFS with Python 3.12. Closes: #1061750, #1061823.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 07 Feb 2024 01:45:23 +0100
+
+python-cliapp (1.20180812.1-5) unstable; urgency=medium
+
+  * QA upload.
+  * Patch: Port plugin loading to importlib for Python 3.12 support.
+    (Closes: #1058179)
+
+ -- Stefano Rivera <stefanor@debian.org>  Mon, 22 Jan 2024 17:04:45 -0400
+
 python-cliapp (1.20180812.1-4) unstable; urgency=medium
 
   * QA upload.

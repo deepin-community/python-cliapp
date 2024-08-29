@@ -1,0 +1,11 @@
+--- a/cliapp/settings.py
++++ b/cliapp/settings.py
+@@ -835,7 +835,7 @@ class Settings(object):
+     def _read_ini(self, pathname, f):
+         cp = ConfigParser()
+         cp.add_section('config')
+-        cp.readfp(f)
++        cp.read_file(f)
+         for name in cp.options('config'):
+             value = cp.get('config', name)
+             s = self.set_from_raw_string(pathname, name, value)
